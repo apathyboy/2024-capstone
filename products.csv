@@ -1,10 +1,10 @@
 product,image,description,stock,category,is_featured,price
-Product 1,product1-image.webp,This is the first product,10,Category 1,1,899.99
-Product 2,product2-image.webp,This is the second product,20,Category 1,0,999.99
-Product 3,product3-image.webp,This is the third product,30,Category 1,0,79.99
-Product 4,product4-image.webp,This is the fourth product,10,Category 2,0,999.99
-Product 5,product5-image.webp,This is the fifth product,20,Category 2,0,999.99
-Product 6,product6-image.webp,This is the sixth product,30,Category 2,0,999.99
-Product 7,product7-image.webp,This is the seventh product,10,Category 3,0,999.99
-Product 8,product8-image.webp,This is the eighth product,20,Category 3,0,999.99
-Product 9,product9-image.webp,This is the nineth product,30,Category 3,0,999.99
+Nintendo NES,nes.jpg,The classic Nintendo Entertainment System,5,Consoles,1,89.99
+Sega Genesis,genesis.png,16-bit classic Sega console,3,Consoles,0,79.99
+Atari 2600,atari.jpg,Retro 8-bit Atari console,2,Consoles,0,99.99
+Super Mario Bros,mario.png,Classic NES platformer game,10,Games,1,19.99
+Sonic the Hedgehog,sonic.jpeg,Fast-paced Sega Genesis game,8,Games,0,14.99
+Pac-Man,pacman.png,Arcade classic available on Atari,7,Games,0,12.99
+NES Controller,nes-controller.png,Original NES controller,15,Accessories,0,9.99
+Genesis Controller,genesis-controller.png,Original Sega Genesis controller,10,Accessories,0,12.99
+Atari Joystick,atari-joystick.jpeg,Classic Atari 2600 joystick,12,Accessories,1,14.99
