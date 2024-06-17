@@ -52,8 +52,10 @@
                     const categoryElement = document.createElement('div');
                     categoryElement.className = 'category';
                     categoryElement.innerHTML = `
-                        <img src="${category.image}" alt="${category.name} Image" class="category-image">
-                        <p class="category-name"><a href="category.html">${category.name}</a></p>
+                        <a href="category.html?category=${encodeURIComponent(category.name)}">
+                            <img src="${category.image}" alt="${category.name} Image" class="category-image">
+                            <p class="category-name">${category.name}</p>
+                        </a>
                     `;
                     categoryContainer.appendChild(categoryElement);
                 });
