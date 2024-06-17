@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Retro Gaming Shop</h1>
+    </header>
+    <main>
+        <section id="header">
+            <h1 class="category-title">Product Category Title</h1>
+            <nav class="menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </section>
+        <section id="cart-items">
+            <div class="cart-item">
+                <img src="product1-image.webp" alt="Product 1">
+                <div class="cart-item-info">
+                    <h3>Product 1</h3>
+                </div>
+                <div class="cart-item-quantity">
+                    <button>-</button>
+                    <input type="text" value="1" readonly>
+                    <button>+</button>
+                </div>
+                <div class="cart-item-price">$19.99</div>
+                <div class="cart-item-remove">🗑️</div>
+            </div>
+            <div class="cart-item">
+                <img src="product2-image.webp" alt="Product 2">
+                <div class="cart-item-info">
+                    <h3>Product 2</h3>
+                </div>
+                <div class="cart-item-quantity">
+                    <button>-</button>
+                    <input type="text" value="2" readonly>
+                    <button>+</button>
+                </div>
+                <div class="cart-item-price">$29.99</div>
+                <div class="cart-item-remove">🗑️</div>
+            </div>
+            <div class="cart-item">
+                <img src="product3-image.webp" alt="Product 3">
+                <div class="cart-item-info">
+                    <h3>Product 3</h3>
+                </div>
+                <div class="cart-item-quantity">
+                    <button>-</button>
+                    <input type="text" value="1" readonly>
+                    <button>+</button>
+                </div>
+                <div class="cart-item-price">$39.99</div>
+                <div class="cart-item-remove">🗑️</div>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.querySelectorAll('.cart-item-remove').forEach(button => {
+            button.addEventListener('click', function() {
+                const cartItem = button.closest('.cart-item');
+                cartItem.remove();
+            });
+        });
+    </script>
+</body>
+</html>

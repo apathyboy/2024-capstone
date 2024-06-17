@@ -1,0 +1,10 @@
+product,image,description,stock,category,is_featured
+Product 1,product1-image.webp,This is the first product,10,Category 1,1
+Product 2,product2-image.webp,This is the first product,20,Category 1,0
+Product 3,product3-image.webp,This is the first product,30,Category 1,0
+Product 4,product4-image.webp,This is the first product,10,Category 2,0
+Product 5,product5-image.webp,This is the first product,20,Category 2,0
+Product 6,product6-image.webp,This is the first product,30,Category 2,0
+Product 7,product7-image.webp,This is the first product,10,Category 3,0
+Product 8,product8-image.webp,This is the first product,20,Category 3,0
+Product 9,product9-image.webp,This is the first product,30,Category 3,0

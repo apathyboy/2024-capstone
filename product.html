@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Retro Gaming Shop</h1>
+    </header>
+    <main>
+        <section id="header">
+            <h1 class="category-title">Product Category Title</h1>
+            <nav class="menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Shopping Cart</a></li>
+                </ul>
+            </nav>
+        </section>
+        <section id="product-detail">
+            <div class="product-image-wrapper">
+                <img src="placeholder.webp" alt="Product Image" class="product-full-image">
+            </div>
+            <div id="product-options">
+                <div class="product-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="price">$999.99</div>
+            </div>
+            <div class="product-description">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa. Suspendisse potenti. Sed viverra risus sed vehicula interdum. Vivamus nec dui ipsum.</p>
+                <p>Proin dignissim, nunc nec laoreet dapibus, dui augue suscipit est, ut tincidunt eros nulla eu purus. Nulla facilisi. Sed tincidunt est quis nisi egestas, ac facilisis erat venenatis.</p>
+                <p>Fusce tincidunt, mauris sit amet feugiat venenatis, lorem tortor pretium enim, nec pharetra arcu turpis ut elit.</p>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.querySelector('.add-to-cart').addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            const productName = this.getAttribute('data-product-name');
+            const productPrice = this.getAttribute('data-product-price');
+            const productImage = document.querySelector('.product-full-image').src;
+
+            const product = {
+                id: productId,
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                quantity: 1
+            };
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingProductIndex = cart.findIndex(item => item.id === productId);
+            if (existingProductIndex > -1) {
+                cart[existingProductIndex].quantity += 1;
+            } else {
+                cart.push(product);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert('Product added to cart!');
+        });
+    </script>
+</body>
+</html>
