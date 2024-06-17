@@ -15,7 +15,7 @@
             <h1 class="category-title">Product Category Title</h1>
             <nav class="menu">
                 <ul>
-                    <li><a href="cart.html">Shopping Cart</a></li>
+                    <li><a href="cart.html">Shopping Cart <span id="cart-count"></span></a></li>
                 </ul>
             </nav>
         </section>
@@ -43,5 +43,14 @@
             </div>
         </section>
     </main>
+    <script>
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = cartCount > 0 ? `(${cartCount})` : '';
+        }
+
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+    </script>
 </body>
 </html>

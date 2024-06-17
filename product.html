@@ -16,7 +16,7 @@
             <nav class="menu">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="cart.html">Shopping Cart</a></li>
+                    <li><a href="cart.html">Shopping Cart <span id="cart-count"></span></a></li>
                 </ul>
             </nav>
         </section>
@@ -38,6 +38,12 @@
         </section>
     </main>
     <script>
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = cartCount > 0 ? `(${cartCount})` : '';
+        }
+
         document.querySelector('.add-to-cart').addEventListener('click', function() {
             const productId = this.getAttribute('data-product-id');
             const productName = this.getAttribute('data-product-name');
@@ -61,8 +67,11 @@
             }
             localStorage.setItem('cart', JSON.stringify(cart));
 
+            updateCartCount();
             alert('Product added to cart!');
         });
+
+        document.addEventListener('DOMContentLoaded', updateCartCount);
     </script>
 </body>
 </html>
