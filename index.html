@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retro Gaming Shop</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
     <header>
@@ -19,30 +20,10 @@
                 </ul>
             </nav>
         </section>
-        <section id="featured-product">
-            <a href="product.html">
-                <div class="image-wrapper">
-                    <img src="featured-image.webp" alt="Featured Product" class="featured-image">
-                    <h2 class="overlay-text">Featured Product Name</h2>
-                </div>
-            </a>
-        </section>
+        <section id="featured-product"></section>
         <section id="product-categories">
             <h2>Product Categories</h2>
-            <div class="category-container">
-                <div class="category">
-                    <img src="category1-image.webp" alt="Category Image" class="category-image">
-                    <p class="category-name"><a href="category.html">Category Name</a></p>
-                </div>
-                <div class="category">
-                    <img src="category2-image.webp" alt="Category Image" class="category-image">
-                    <p class="category-name"><a href="category.html">Category Name</a></p>
-                </div>
-                <div class="category">
-                    <img src="category3-image.webp" alt="Category Image" class="category-image">
-                    <p class="category-name"><a href="category.html">Category Name</a></p>
-                </div>
-            </div>
+            <div class="category-container" id="category-container"></div>
         </section>
     </main>
     <script>
@@ -52,7 +33,46 @@
             document.getElementById('cart-count').textContent = cartCount > 0 ? `(${cartCount})` : '';
         }
 
-        document.addEventListener('DOMContentLoaded', updateCartCount);
+        function loadCSV(filePath, callback) {
+            Papa.parse(filePath, {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    callback(results.data);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+
+            loadCSV('categories.csv', function(categories) {
+                const categoryContainer = document.getElementById('category-container');
+                categories.forEach(category => {
+                    const categoryElement = document.createElement('div');
+                    categoryElement.className = 'category';
+                    categoryElement.innerHTML = `
+                        <img src="${category.image}" alt="${category.name} Image" class="category-image">
+                        <p class="category-name"><a href="category.html">${category.name}</a></p>
+                    `;
+                    categoryContainer.appendChild(categoryElement);
+                });
+            });
+
+            loadCSV('products.csv', function(products) {
+                const featuredProduct = products.find(product => product.is_featured === '1');
+                if (featuredProduct) {
+                    document.getElementById('featured-product').innerHTML = `
+                        <a href="product.html?product=${encodeURIComponent(featuredProduct.product)}">
+                            <div class="image-wrapper">
+                                <img src="${featuredProduct.image}" alt="Featured Product" class="featured-image">
+                                <h2 class="overlay-text">${featuredProduct.product}</h2>
+                            </div>
+                        </a>
+                    `;
+                }
+            });
+        });
     </script>
 </body>
 </html>
