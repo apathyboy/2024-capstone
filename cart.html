@@ -23,21 +23,31 @@
         <div id="empty-cart-message" style="display: none;">
             <p>Your cart is empty. Please add some products.</p>
         </div>
+        <div id="cart-summary" style="display: none;" class="cart-summary">
+            <span id="total-price"></span>
+            <button id="checkout-button">Checkout</button>
+        </div>
     </main>
     <script>
         function renderCart() {
             const cartItemsContainer = document.getElementById('cart-items');
             const emptyCartMessage = document.getElementById('empty-cart-message');
+            const cartSummary = document.getElementById('cart-summary');
+            const totalPriceElement = document.getElementById('total-price');
             cartItemsContainer.innerHTML = ''; // Clear existing items
 
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
             if (cart.length === 0) {
                 emptyCartMessage.style.display = 'block';
+                cartSummary.style.display = 'none';
                 return;
             } else {
                 emptyCartMessage.style.display = 'none';
+                cartSummary.style.display = 'flex';
             }
+
+            let totalPrice = 0;
 
             cart.forEach(item => {
                 const cartItem = document.createElement('div');
@@ -58,6 +68,8 @@
                 `;
 
                 cartItemsContainer.appendChild(cartItem);
+
+                totalPrice += item.price * item.quantity;
 
                 // Event listeners for quantity buttons
                 cartItem.querySelector('.quantity-decrease').addEventListener('click', () => {
@@ -80,6 +92,8 @@
                     renderCart();
                 });
             });
+
+            totalPriceElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
         }
 
         document.addEventListener('DOMContentLoaded', renderCart);

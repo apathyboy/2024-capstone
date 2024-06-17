@@ -287,3 +287,29 @@ main {
     color: red;
     margin-left: 20px;
 }
+
+/* Cart summary */
+.cart-summary {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+#total-price {
+    font-size: 1.2em;
+    margin-right: 20px;
+}
+
+#checkout-button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+}
