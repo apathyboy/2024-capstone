@@ -20,10 +20,11 @@
                 </ul>
             </nav>
         </section>
-        <section id=""product-list">
+        <section id="product-list">
             <div class="product-row">
-                <img src="placeholder.webp" alt="Product Image" class="product-image">
+                <img src="placeholder.webp" alt="Product Image" class="product-image" data-product-id="1" data-product-name="Product Name 1" data-product-price="999.99">
                 <div class="product-info">
+                    <h2>Product 1</h2>
                     <p class="product-description">Short description of the product goes here.</p>
                     <div id="product-options">
                         <div class="product-buttons">
@@ -35,32 +36,64 @@
                 </div>
             </div>
             <div class="product-row">
-                <img src="placeholder.webp" alt="Product Image" class="product-image">
+                <img src="placeholder.webp" alt="Product Image" class="product-image" data-product-id="2" data-product-name="Product Name 2" data-product-price="899.99">
                 <div class="product-info">
+                    <h2>Product 2</h2>
                     <p class="product-description">Short description of the product goes here.</p>
                     <div id="product-options">
                         <div class="product-buttons">
                             <a href="product.html" class="view-product">View Product</a>
                             <button class="add-to-cart">Add to Cart</button>
                         </div>
-                        <div class="price">$999.99</div>
+                        <div class="price">$899.99</div>
                     </div>
                 </div>
             </div>
             <div class="product-row">
-                <img src="placeholder.webp" alt="Product Image" class="product-image">
+                <img src="placeholder.webp" alt="Product Image" class="product-image" data-product-id="3" data-product-name="Product Name 3" data-product-price="799.99">
                 <div class="product-info">
+                    <h2>Product 3</h2>
                     <p class="product-description">Short description of the product goes here.</p>
                     <div id="product-options">
                         <div class="product-buttons">
                             <a href="product.html" class="view-product">View Product</a>
                             <button class="add-to-cart">Add to Cart</button>
                         </div>
-                        <div class="price">$999.99</div>
+                        <div class="price">$799.99</div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+    <script>
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productRow = this.closest('.product-row');
+                const productId = productRow.querySelector('.product-image').getAttribute('data-product-id');
+                const productName = productRow.querySelector('.product-image').getAttribute('data-product-name');
+                const productPrice = productRow.querySelector('.product-image').getAttribute('data-product-price');
+                const productImage = productRow.querySelector('.product-image').src;
+
+                const product = {
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                    quantity: 1
+                };
+
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingProductIndex = cart.findIndex(item => item.id === productId);
+                if (existingProductIndex > -1) {
+                    cart[existingProductIndex].quantity += 1;
+                } else {
+                    cart.push(product);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                alert('Product added to cart!');
+            });
+        });
+    </script>
 </body>
 </html>

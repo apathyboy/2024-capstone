@@ -12,62 +12,77 @@
     </header>
     <main>
         <section id="header">
-            <h1 class="category-title">Product Category Title</h1>
+            <h1 class="category-title">Shopping Cart</h1>
             <nav class="menu">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                 </ul>
             </nav>
         </section>
-        <section id="cart-items">
-            <div class="cart-item">
-                <img src="product1-image.webp" alt="Product 1">
-                <div class="cart-item-info">
-                    <h3>Product 1</h3>
-                </div>
-                <div class="cart-item-quantity">
-                    <button>-</button>
-                    <input type="text" value="1" readonly>
-                    <button>+</button>
-                </div>
-                <div class="cart-item-price">$19.99</div>
-                <div class="cart-item-remove">🗑️</div>
-            </div>
-            <div class="cart-item">
-                <img src="product2-image.webp" alt="Product 2">
-                <div class="cart-item-info">
-                    <h3>Product 2</h3>
-                </div>
-                <div class="cart-item-quantity">
-                    <button>-</button>
-                    <input type="text" value="2" readonly>
-                    <button>+</button>
-                </div>
-                <div class="cart-item-price">$29.99</div>
-                <div class="cart-item-remove">🗑️</div>
-            </div>
-            <div class="cart-item">
-                <img src="product3-image.webp" alt="Product 3">
-                <div class="cart-item-info">
-                    <h3>Product 3</h3>
-                </div>
-                <div class="cart-item-quantity">
-                    <button>-</button>
-                    <input type="text" value="1" readonly>
-                    <button>+</button>
-                </div>
-                <div class="cart-item-price">$39.99</div>
-                <div class="cart-item-remove">🗑️</div>
-            </div>
-        </section>
+        <section id="cart-items"></section>
+        <div id="empty-cart-message" style="display: none;">
+            <p>Your cart is empty. Please add some products.</p>
+        </div>
     </main>
     <script>
-        document.querySelectorAll('.cart-item-remove').forEach(button => {
-            button.addEventListener('click', function() {
-                const cartItem = button.closest('.cart-item');
-                cartItem.remove();
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            cartItemsContainer.innerHTML = ''; // Clear existing items
+
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                return;
+            } else {
+                emptyCartMessage.style.display = 'none';
+            }
+
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h3>${item.name}</h3>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button class="quantity-decrease">-</button>
+                        <input type="text" value="${item.quantity}" readonly>
+                        <button class="quantity-increase">+</button>
+                    </div>
+                    <div class="cart-item-price">$${item.price}</div>
+                    <div class="cart-item-remove">🗑️</div>
+                `;
+
+                cartItemsContainer.appendChild(cartItem);
+
+                // Event listeners for quantity buttons
+                cartItem.querySelector('.quantity-decrease').addEventListener('click', () => {
+                    item.quantity = Math.max(1, item.quantity - 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                });
+
+                cartItem.querySelector('.quantity-increase').addEventListener('click', () => {
+                    item.quantity += 1;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                });
+
+                // Event listener for remove button
+                cartItem.querySelector('.cart-item-remove').addEventListener('click', () => {
+                    const index = cart.findIndex(cartItem => cartItem.id === item.id);
+                    cart.splice(index, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                });
             });
-        });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCart);
     </script>
 </body>
 </html>
